@@ -1,5 +1,5 @@
 import { Button, Carousel } from "antd";
-import React from "react";
+import React, { useEffect } from "react";
 import { FaRegBookmark } from "react-icons/fa";
 import styled from "styled-components";
 import Banner from "../components/Banner";
@@ -79,6 +79,10 @@ const banner_items = [
 ];
 
 const Home = () => {
+  // useEffect(() => {
+  //   fetchTrendingMovies();
+  // }, []);
+
   return (
     <HomeWrapper>
       <BannerWrapper>
