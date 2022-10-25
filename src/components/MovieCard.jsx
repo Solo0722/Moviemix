@@ -51,7 +51,7 @@ const MovieCard = ({ movie }) => {
 
 const MovieCardWrapper = styled.div`
   width: 270px;
-  height: 310px;
+  height: 320px;
   background-color: #222;
   margin-top: 10px;
   margin-bottom: 10px;
