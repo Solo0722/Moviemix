@@ -1,6 +1,6 @@
 import { createContext, useState, useEffect } from "react";
 import axios from "axios";
-import { Alert } from "antd";
+import { Alert, message } from "antd";
 export const BASE_URL = "https://api.themoviedb.org/3";
 export const API_KEY = process.env.REACT_APP_TMDB_API_KEY;
 
@@ -18,6 +18,15 @@ const GlobalProvider = ({ children }) => {
   const [movieReviews, setMovieReviews] = useState(null);
   const [similarMovies, setSimilarMovies] = useState(null);
   const [recommendedMovies, setRecommendedMovies] = useState(null);
+  const [genres, setGenres] = useState(null);
+  const [movies, setMovies] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchResults, setSearchResults] = useState(null);
+
+  useEffect(() => {
+    !window.navigator.onLine &&
+      message.info("Please go online to use moviemix!");
+  }, []);
 
   const fetchTrendingMovies = async () => {
     try {
@@ -152,17 +161,59 @@ const GlobalProvider = ({ children }) => {
   };
 
   const fetchListOfGenres = async () => {
-    const { data } = await axios.get(
-      `${BASE_URL}/genre/movie/list?api_key=${API_KEY}`
-    );
-    return data;
+    try {
+      const { data } = await axios.get(
+        `${BASE_URL}/genre/movie/list?api_key=${API_KEY}`
+      );
+      setGenres(data);
+    } catch (error) {
+      console.log(error);
+      setGenres(null);
+    }
   };
 
-  const getMoviesBasedOnGenre = async (genreId) => {
-    const { data } = await axios.get(
-      `${BASE_URL}/movie/${genreId}?api_key=${API_KEY}`
-    );
-    return data;
+  const getMoviesBasedOnGenre = async (genreId, pageNumber) => {
+    try {
+      if (!genreId || genreId === "" || genreId == undefined) {
+        const { data } = await axios.get(
+          `${BASE_URL}/discover/movie?api_key=${API_KEY}&page=${pageNumber}`
+        );
+        setMovies(data);
+      } else {
+        const { data } = await axios.get(
+          `${BASE_URL}/discover/movie?api_key=${API_KEY}&with_genres=${genreId}&page=${pageNumber}`
+        );
+        setMovies(data);
+      }
+    } catch (error) {
+      console.log(error);
+      setMovies(null);
+    }
+  };
+
+  const searchMovies = async (searchWord, searchType) => {
+    try {
+      if (!searchWord && !searchType) {
+        const { data } = await axios.get(
+          `${BASE_URL}/discover/movie?api_key=${API_KEY}`
+        );
+        setSearchResults(data);
+      }
+      else if (!searchType) {
+        const { data } = await axios.get(
+          `${BASE_URL}/search/movie?api_key=${API_KEY}&query=${searchWord}`
+        );
+        setSearchResults(data);
+      } else {
+        const { data } = await axios.get(
+          `${BASE_URL}/search/${searchType}?api_key=${API_KEY}&query=${searchWord}`
+        );
+        setSearchResults(data);
+      }
+    } catch (error) {
+      console.log(error);
+      setSearchResults(null);
+    }
   };
 
   return (
@@ -179,6 +230,11 @@ const GlobalProvider = ({ children }) => {
         movieReviews,
         similarMovies,
         recommendedMovies,
+        genres,
+        movies,
+        searchTerm,
+        setSearchTerm,
+        searchResults,
 
         fetchTrendingMovies,
         getUpComingMovies,
@@ -191,6 +247,9 @@ const GlobalProvider = ({ children }) => {
         getMovieOrShowReviews,
         getSimilarMovies,
         getRecommendedMovies,
+        fetchListOfGenres,
+        getMoviesBasedOnGenre,
+        searchMovies,
       }}
     >
       {children}

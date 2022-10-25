@@ -5,6 +5,7 @@ import styled from "styled-components";
 import Searchbar from "./Searchbar";
 import Drawerbar from "../containers/Drawerbar";
 import { Link, useLocation } from "react-router-dom";
+import colors from "../utils/colors";
 
 const Navbar = () => {
   const location = useLocation();
@@ -28,6 +29,7 @@ const Navbar = () => {
           display: "flex",
           align: "center",
           justifyContent: "flex-start",
+          marginRight: "7px",
         }}
       >
         <Link to={"/"}>
@@ -71,7 +73,7 @@ const NavbarWrapper = styled.nav`
   width: 100%;
   padding: 0 1rem;
   transition: all 0.3s ease-out 0s;
-  background: #222;
+  background: ${colors.secondary};
   box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 
   display: flex;

@@ -94,6 +94,11 @@ export const HorizontalOverflowContainer = styled.div`
   -ms-overflow-style: none;
   scrollbar-width: none;
 
+  p {
+    word-wrap: break-all;
+    word-break: normal;
+  }
+
   &::-webkit-scrollbar {
     display: none;
   }

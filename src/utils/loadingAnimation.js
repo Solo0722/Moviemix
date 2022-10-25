@@ -18,7 +18,7 @@ const LoadingAnimationWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #000;
+  background: transparent;
 
   .wave {
     width: 10px;

@@ -11,8 +11,8 @@ const CastCard = ({ person }) => {
         />
       </div>
       <div className="content-wrapper">
-        <p style={{fontWeight: 'bold'}}>{person.name}</p>
-        <p style={{color:"#cccccc"}}>{person.character}</p>
+        <p style={{ fontWeight: "bold" }}>{person.name}</p>
+        <p style={{ color: "#cccccc" }}>{person.character}</p>
       </div>
     </CardWrapper>
   );
@@ -28,9 +28,6 @@ const CardWrapper = styled.div`
   margin: 10px 10px 10px 0;
   border-radius: 10px;
 
-  p {
-    word-wrap: break-word;
-  }
 
   .img-container {
     height: 70%;
@@ -47,6 +44,7 @@ const CardWrapper = styled.div`
   .content-wrapper {
     padding: 7px;
   }
+
 `;
 
 export default CastCard;

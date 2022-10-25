@@ -5,10 +5,11 @@ import styled from "styled-components";
 import { StarFilled, RiseOutlined } from "@ant-design/icons";
 import colors from "../utils/colors";
 import { Link } from "react-router-dom";
+import moment from "moment";
 
 const MovieCard = ({ movie }) => {
   return (
-    <Link to={`/movies/${movie.id}`} >
+    <Link to={`/movies/${movie.id}`}>
       <MovieCardWrapper>
         <ImageWrapper>
           <img
@@ -20,6 +21,7 @@ const MovieCard = ({ movie }) => {
         <ContentWrapper>
           <TitleWrapper>
             <p>{movie.title}</p>
+            <p> {moment(movie.release_date).format("MMMM D, YYYY")} </p>
           </TitleWrapper>
           <ImpressionsWrapper>
             <Button

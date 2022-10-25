@@ -13,18 +13,8 @@ import {
 export const navLinks = [
   {
     title: "Movies",
-    link: "/categories/movies",
+    link: "/movies",
     icon: <FaFilm style={{ marginRight: "20px" }} />,
-  },
-  {
-    title: "Series",
-    link: "/categories/series",
-    icon: <FaLayerGroup style={{ marginRight: "20px" }} />,
-  },
-  {
-    title: "TV Shows",
-    link: "/categories/shows",
-    icon: <FaTv style={{ marginRight: "20px" }} />,
   },
   {
     title: "Watchlist",
