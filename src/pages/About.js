@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
+import Loading from "../utils/loadingAnimation";
 
 const About = () => {
   return (
-    <div>About</div>
-  )
-}
+    <div>
+      <Loading />
+    </div>
+  );
+};
 
-export default About
+export default About;

@@ -11,6 +11,7 @@ import {
 } from "react-icons/fa";
 import { AiFillAppstore } from "react-icons/ai";
 import { Button } from "antd";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -38,6 +39,17 @@ const Footer = () => {
           <Button type="text">MoviemixPro</Button>
           <Button type="text">Box office mojo</Button>
         </div>
+        <p>
+          API by &nbsp;
+          <a href="https://themoviedb.org" target={"_blank"}>
+            <img
+              src="/assets/images/tmdb.svg"
+              alt="tmdb-logo"
+              width={100}
+              height={30}
+            />
+          </a>
+        </p>
         <cite>Developed and designed by OAS &copy; 2022</cite>
       </BottomContainer>
     </FooterWrapper>
@@ -75,9 +87,10 @@ const BottomContainer = styled.div`
     margin: 5px 10px;
   }
 
-  cite {
+  cite,
+  p {
     color: rgba(255, 255, 255, 0.4);
-    margin-top: 20px;
+    margin-top: 10px;
   }
 `;
 
