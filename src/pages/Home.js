@@ -23,7 +23,6 @@ const Home = () => {
           autoplay
           adaptiveHeight
           autoplaySpeed={5000}
-          dots={false}
           draggable
           easing="linear"
           effect="fade"
@@ -39,15 +38,6 @@ const Home = () => {
         </Carousel>
       </BannerWrapper>
       <PopularMovies />
-      <FromYourWatchlistWrapper>
-        <h2>From your watchlist</h2>
-        <div>
-          <Button size="large" type="text" icon={<FaRegBookmark />} />
-          <h3>Sign in to access your watchlist</h3>
-          <p>Save shows and movies to keep track of what you want to watch</p>
-          <Button type="primary">Sign in to Moviemix</Button>
-        </div>
-      </FromYourWatchlistWrapper>
       <UpComingMovies />
       <TopRatedMovies />
       <PopularActors />
@@ -61,30 +51,8 @@ const HomeWrapper = styled.div`
 
 const BannerWrapper = styled.div`
   width: 100%;
-  /* height: 100%; */
   margin-bottom: 30px;
 `;
-
-const FromYourWatchlistWrapper = styled.div`
-  width: 100%;
-  height: 50vh;
-  padding: 1rem;
-  margin: 30px 0;
-
-  div {
-    background: #222;
-    height: 90%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-
-  div h3 {
-    font-weight: bold;
-  }
-`;
-const PopularActorsWrapper = styled.div``;
 
 export const HorizontalOverflowContainer = styled.div`
   overflow-x: scroll;

@@ -12,6 +12,7 @@ import {
   Favorites,
   Home,
   MovieDetails,
+  PersonDetails,
   Search,
   Watchlist,
 } from "./pages";
@@ -25,12 +26,9 @@ function App() {
           <Routes>
             <Route path="/*" exact element={<Home />} />
             <Route path="/movies/:movieId" exact element={<MovieDetails />} />
+            <Route path="/people/:personId" exact element={<PersonDetails />} />
             <Route path="/movies" exact element={<AllMovies />} />
-            <Route path="/watchlist" exact element={<Watchlist />} />
             <Route path="/search" exact element={<Search />} />
-            <Route path="/favorites" exact element={<Favorites />} />
-            <Route path="/auth" exact element={<Auth />} />
-            <Route path="/about" exact element={<About />} />
           </Routes>
         </RoutesContainer>
         <Footer />

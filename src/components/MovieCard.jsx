@@ -16,7 +16,6 @@ const MovieCard = ({ movie }) => {
             src={"https://image.tmdb.org/t/p/w342/" + movie.poster_path}
             alt="image"
           />
-          <Button type="text" icon={<FaRegBookmark />} />
         </ImageWrapper>
         <ContentWrapper>
           <TitleWrapper>
@@ -27,24 +26,12 @@ const MovieCard = ({ movie }) => {
             <p> {moment(movie.release_date).format("MMMM D, YYYY")} </p>
           </TitleWrapper>
           <ImpressionsWrapper>
-            <Button
-              type="text"
-              icon={
+            <p>
+              <span>
                 <StarFilled style={{ color: "gold", marginRight: "10px" }} />
-              }
-            >
-              {movie.vote_average}
-            </Button>
-            <Button
-              type="text"
-              icon={
-                <RiseOutlined
-                  style={{ color: colors.primary, marginRight: "10px" }}
-                />
-              }
-            >
-              {movie.popularity}
-            </Button>
+              </span>
+              <span>{movie.vote_average}</span>
+            </p>
           </ImpressionsWrapper>
         </ContentWrapper>
       </MovieCardWrapper>
@@ -53,9 +40,8 @@ const MovieCard = ({ movie }) => {
 };
 
 const MovieCardWrapper = styled.div`
-  width: 270px;
-  min-height: 320px;
-  background-color: #222;
+  width: 220px;
+  height: 320px;
   margin-top: 10px;
   margin-bottom: 10px;
   margin-right: 15px;
@@ -77,13 +63,7 @@ const ImageWrapper = styled.div`
     width: 100%;
     height: 100%;
     object-fit: cover;
-  }
-
-  button {
-    position: absolute;
-    top: 0;
-    left: 0;
-    background: rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
   }
 `;
 

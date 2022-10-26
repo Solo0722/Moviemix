@@ -7,11 +7,7 @@ import { GlobalContext } from "../context/context";
 import Loading from "../utils/loadingAnimation";
 
 const Search = () => {
-  const { searchResults, searchMovies, searchTerm } = useContext(GlobalContext);
-
-  useEffect(() => {
-    searchMovies();
-  }, []);
+  const { searchResults, searchTerm } = useContext(GlobalContext);
 
   return (
     <SearchWrapper>

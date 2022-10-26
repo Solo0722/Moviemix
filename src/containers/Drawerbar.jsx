@@ -43,6 +43,7 @@ const Drawerbar = () => {
     <div>
       <Button type="text" icon={<MenuOutlined />} onClick={showDrawer} />
       <Drawer
+        width={250}
         title={
           <div
             style={{

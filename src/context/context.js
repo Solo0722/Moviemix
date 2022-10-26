@@ -22,6 +22,7 @@ const GlobalProvider = ({ children }) => {
   const [movies, setMovies] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState(null);
+  const [personDetails, setPersonDetails] = useState(null);
 
   useEffect(() => {
     !window.navigator.onLine &&
@@ -198,8 +199,7 @@ const GlobalProvider = ({ children }) => {
           `${BASE_URL}/discover/movie?api_key=${API_KEY}`
         );
         setSearchResults(data);
-      }
-      else if (!searchType) {
+      } else if (!searchType) {
         const { data } = await axios.get(
           `${BASE_URL}/search/movie?api_key=${API_KEY}&query=${searchWord}`
         );
@@ -213,6 +213,19 @@ const GlobalProvider = ({ children }) => {
     } catch (error) {
       console.log(error);
       setSearchResults(null);
+    }
+  };
+
+  const getPersonDetails = async (personId) => {
+    try {
+      const { data } = await axios.get(
+        `${BASE_URL}/person/${personId}?api_key=${API_KEY}`
+      );
+      setPersonDetails(data);
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+      setPersonDetails(null);
     }
   };
 
@@ -235,6 +248,7 @@ const GlobalProvider = ({ children }) => {
         searchTerm,
         setSearchTerm,
         searchResults,
+        personDetails,
 
         fetchTrendingMovies,
         getUpComingMovies,
@@ -250,6 +264,7 @@ const GlobalProvider = ({ children }) => {
         fetchListOfGenres,
         getMoviesBasedOnGenre,
         searchMovies,
+        getPersonDetails,
       }}
     >
       {children}

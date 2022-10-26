@@ -1,5 +1,6 @@
 import { Avatar, List } from "antd";
 import { useEffect, useContext } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { GlobalContext } from "../context/context";
 import Loading from "../utils/loadingAnimation";
@@ -29,7 +30,7 @@ const PopularActors = () => {
                       }
                     />
                   }
-                  title={<a href="">{actor.name}</a>}
+                  title={<Link to={`/people/${actor.id}`}>{actor.name}</Link>}
                   description={<p>Popularity: {actor.popularity}</p>}
                 />
               </List.Item>
