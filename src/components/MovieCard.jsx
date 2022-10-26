@@ -20,7 +20,10 @@ const MovieCard = ({ movie }) => {
         </ImageWrapper>
         <ContentWrapper>
           <TitleWrapper>
-            <p>{movie.title}</p>
+            <h3>{movie.title}</h3>
+            <br />
+          </TitleWrapper>
+          <TitleWrapper>
             <p> {moment(movie.release_date).format("MMMM D, YYYY")} </p>
           </TitleWrapper>
           <ImpressionsWrapper>
@@ -51,7 +54,7 @@ const MovieCard = ({ movie }) => {
 
 const MovieCardWrapper = styled.div`
   width: 270px;
-  height: 320px;
+  min-height: 320px;
   background-color: #222;
   margin-top: 10px;
   margin-bottom: 10px;
@@ -99,10 +102,6 @@ const TitleWrapper = styled.div`
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  p {
-    font-size: 17px;
-    word-wrap: break-word;
-  }
 `;
 
 export default MovieCard;

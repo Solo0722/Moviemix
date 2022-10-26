@@ -349,6 +349,9 @@ const ImageWrapper = styled.div`
     & {
       width: 90%;
     }
+    img {
+      width: 100%;
+    }
   }
 `;
 const ContentWrapper = styled.div`

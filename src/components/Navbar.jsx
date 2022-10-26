@@ -46,7 +46,6 @@ const Navbar = () => {
       </div>
       <div
         style={{
-          borderLeft: "1px solid #555",
           display: "flex",
           align: "center",
           justifyContent: "flex-end",

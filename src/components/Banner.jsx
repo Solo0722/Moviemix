@@ -35,7 +35,7 @@ const Banner = ({ trendingMovie }) => {
 
 const BannerItemWrapper = styled.div`
   width: 100%;
-  height: 90vh;
+  height: calc(100vh - 70px);
   padding: 2rem;
   box-sizing: border-box;
   display: flex;

@@ -61,11 +61,7 @@ const AllMovies = () => {
         </BodyWrapper>
       )}
       <PaginationWrapper>
-        <Pagination
-          current={current}
-          onChange={onChange}
-          total={499}
-        />
+        <Pagination current={current} onChange={onChange} total={499} />
       </PaginationWrapper>
     </MoviesWrapper>
   );
@@ -80,6 +76,8 @@ const NavWrapper = styled.div`
   width: 100%;
   height: 50px;
 `;
+
+
 
 const BodyWrapper = styled.div`
   width: 100%;
