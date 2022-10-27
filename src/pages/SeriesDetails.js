@@ -1,4 +1,4 @@
-import { Avatar, Button, Divider, List, Modal, Tooltip } from "antd";
+import { Avatar, Button, Divider, List, Tooltip } from "antd";
 import moment from "moment";
 import { FaHeart, FaRegBookmark, FaStar } from "react-icons/fa";
 import {
@@ -14,11 +14,12 @@ import { GlobalContext } from "../context/context";
 import Loading from "../utils/loadingAnimation";
 import CastCard from "../components/CastCard";
 import { HorizontalOverflowContainer } from "./Home";
-import MovieCard from "../components/MovieCard";
+import SeriesCard from "../components/SeriesCard";
 import ReactPlayer from "react-player";
+import SeasonCard from "../components/SeasonCard";
 
-const MovieDetails = () => {
-  const { movieId } = useParams();
+const SeriesDetails = () => {
+  const { seriesId } = useParams();
   const {
     getMovieDetails,
     movieDetails,
@@ -35,18 +36,19 @@ const MovieDetails = () => {
   } = useContext(GlobalContext);
 
   useEffect(() => {
-    getMovieDetails("movie", movieId);
-    getMovieCredits("movie", movieId);
-    getVideosAboutAMovie("movie", movieId);
-    getMovieOrShowReviews("movie", movieId);
-    getRecommendedMovies("movie", movieId);
-    getSimilarMovies("movie", movieId);
+    getMovieDetails("tv", seriesId);
+    getMovieCredits("tv", seriesId);
+    getVideosAboutAMovie("tv", seriesId);
+    getMovieOrShowReviews("tv", seriesId);
+    getRecommendedMovies("tv", seriesId);
+    getSimilarMovies("tv", seriesId);
     window.scrollTo(0, 0);
-  }, [movieId]);
+  }, [seriesId]);
 
   const trailerURL = movieVideos?.results?.filter(
     (v) => v.type == "Trailer" && v.site == "YouTube"
   );
+
   return (
     <MovieDetailWrapper>
       {!movieDetails ? (
@@ -69,7 +71,7 @@ const MovieDetails = () => {
               />
             </ImageWrapper>
             <ContentWrapper>
-              <h1>{movieDetails.title}</h1>
+              <h1>{movieDetails.name}</h1>
               <p style={{ color: "#cccccc", fontFamily: "Segoe script" }}>
                 "{movieDetails.tagline}"
               </p>
@@ -88,13 +90,20 @@ const MovieDetails = () => {
                   </Button>
                 ))}
               </GenresWrapper>
+              <p>Number of seasons: {movieDetails.number_of_seasons}</p>
+              <p>Number of episodes: {movieDetails.number_of_episodes}</p>
+
               <p>
-                <CalendarFilled style={{ marginRight: "10px" }} />
-                {moment(movieDetails.release_date).format("MMMM D, YYYY")}
+                First Air Date:{" "}
+                {moment(movieDetails.first_air_date).format("MMMM D, YYYY")}
+              </p>
+              <p>
+                Last Air Date:{" "}
+                {moment(movieDetails.last_air_date).format("MMMM D, YYYY")}
               </p>
               <p>
                 <ClockCircleFilled style={{ marginRight: "10px" }} />{" "}
-                {movieDetails.runtime} mins
+                {movieDetails.episode_run_time[0]} mins
               </p>
               <div
                 style={{
@@ -118,16 +127,6 @@ const MovieDetails = () => {
                 <h2>Overview</h2>
                 <p>{movieDetails.overview}</p>
               </div>
-
-              <Button
-                type="primary"
-                shape="round"
-                size="large"
-                icon={<PlayCircleFilled />}
-                style={{ margin: "10px 0" }}
-              >
-                Play trailer
-              </Button>
             </ContentWrapper>
           </MainWrapper>
           <TrailerWrapper>
@@ -137,6 +136,20 @@ const MovieDetails = () => {
               }`}
             />
           </TrailerWrapper>
+          <SeasonsWrapper>
+            <h2>Seasons</h2>
+            <HorizontalOverflowContainer>
+              {!movieDetails?.seasons ? (
+                <Loading />
+              ) : (
+                movieDetails?.seasons?.map((season) => (
+                  <div style={{ display: "inline-block" }}>
+                    <SeasonCard season={season} />
+                  </div>
+                ))
+              )}
+            </HorizontalOverflowContainer>
+          </SeasonsWrapper>
           <SecondaryWrapper>
             <CastWrapper>
               <h2>Cast</h2>
@@ -222,9 +235,9 @@ const MovieDetails = () => {
                 {!recommendedMovies.length ? (
                   <p>No recommended movies available!</p>
                 ) : (
-                  recommendedMovies?.results?.map((movie) => (
+                  recommendedMovies?.results?.map((series) => (
                     <div style={{ display: "inline-block" }}>
-                      <MovieCard movie={movie} />
+                      <SeriesCard series={series} />
                     </div>
                   ))
                 )}
@@ -238,9 +251,9 @@ const MovieDetails = () => {
               <Loading />
             ) : (
               <HorizontalOverflowContainer>
-                {similarMovies?.results?.map((movie) => (
+                {similarMovies?.results?.map((series) => (
                   <div style={{ display: "inline-block" }}>
-                    <MovieCard movie={movie} />
+                    <SeriesCard series={series} />
                   </div>
                 ))}
               </HorizontalOverflowContainer>
@@ -324,11 +337,9 @@ const GenresWrapper = styled.div`
   margin-bottom: 20px;
 `;
 
-const ButtonsWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-start;
+const SeasonsWrapper = styled.div`
+  width: 100%;
+  padding: 2rem 1rem;
 `;
 
 const TrailerWrapper = styled.div`
@@ -407,4 +418,4 @@ const SimilarMoviesWrapper = styled.div`
   padding: 2rem 1rem;
 `;
 
-export default MovieDetails;
+export default SeriesDetails;

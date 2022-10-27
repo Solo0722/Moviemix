@@ -4,15 +4,19 @@ import styled from "styled-components";
 import { GlobalContext } from "../context/context";
 import Loading from "../utils/loadingAnimation";
 import moment from "moment";
+import { HorizontalOverflowContainer } from "./Home";
+import MovieCard from "../components/MovieCard";
 
 const PersonDetails = () => {
   const { personId } = useParams();
   console.log(personId);
 
-  const { getPersonDetails, personDetails } = useContext(GlobalContext);
+  const { getPersonDetails, personDetails, getPersonMovies, personMovies } =
+    useContext(GlobalContext);
 
   useEffect(() => {
     getPersonDetails(personId);
+    getPersonMovies(personId);
   }, [personId]);
 
   const getGender = (genderId) => {
@@ -51,6 +55,24 @@ const PersonDetails = () => {
             </div>
           </ContentWrapper>
         </MainWrapper>
+      )}
+      {!personMovies ? (
+        <Loading />
+      ) : (
+        <MoviesKnownForWrapper>
+          <h2>Movies Known For</h2>
+          <HorizontalOverflowContainer>
+            {!personMovies?.cast?.length ? (
+              <p>No movies available!</p>
+            ) : (
+              personMovies?.cast?.map((movie) => (
+                <div style={{ display: "inline-block" }}>
+                  <MovieCard movie={movie} />
+                </div>
+              ))
+            )}
+          </HorizontalOverflowContainer>
+        </MoviesKnownForWrapper>
       )}
     </PersonDetailsWrapper>
   );
@@ -116,6 +138,10 @@ const ContentWrapper = styled.div`
       width: 90%;
     }
   }
+`;
+
+const MoviesKnownForWrapper = styled.div`
+  padding: 1rem;
 `;
 
 export default PersonDetails;

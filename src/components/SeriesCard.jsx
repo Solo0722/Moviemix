@@ -3,21 +3,28 @@ import React from "react";
 import styled from "styled-components";
 import { StarFilled, PlusCircleFilled } from "@ant-design/icons";
 import { Link } from "react-router-dom";
+import moment from "moment";
 
-const MovieCard2 = ({ movie }) => {
+const SeriesCard = ({ series }) => {
   return (
-    <Link to={`/movies/${movie.id}`}>
+    <Link to={`/series/${series.id}`}>
       <MovieCardWrapper
         style={{
           backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 20%, rgba(0, 0, 0, 0.7) 80%),url(${
-            "https://image.tmdb.org/t/p/w342/" + movie.poster_path
+            "https://image.tmdb.org/t/p/w342/" + series.poster_path
           })`,
         }}
       >
-        <p>{movie.title}</p>
-        <Button type="dashed" block icon={<PlusCircleFilled />}>
-          Add to watchlist
-        </Button>
+        <h3>{series.name}</h3>
+        <p>
+          <span>
+            <StarFilled style={{ color: "gold", marginRight: "10px" }} />
+          </span>
+          <span>{series.vote_average}</span>
+        </p>
+        <p>
+          <span> {moment(series.first_air_date).format("MMMM D, YYYY")} </span>
+        </p>
       </MovieCardWrapper>
     </Link>
   );
@@ -43,9 +50,8 @@ const MovieCardWrapper = styled.div`
   background-repeat: no-repeat;
 
   p {
-    font-size: 17px;
     color: #fff;
   }
 `;
 
-export default MovieCard2;
+export default SeriesCard;

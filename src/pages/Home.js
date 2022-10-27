@@ -1,6 +1,6 @@
 import { Button, Carousel } from "antd";
 import React, { useEffect, useContext } from "react";
-import { FaRegBookmark } from "react-icons/fa";
+import { ArrowRightOutlined, ArrowLeftOutlined } from "@ant-design/icons";
 import styled from "styled-components";
 import Banner from "../components/Banner";
 import PopularActors from "../containers/PopularActors";
@@ -20,6 +20,9 @@ const Home = () => {
     <HomeWrapper>
       <BannerWrapper>
         <Carousel
+          arrows
+          nextArrow={<Button icon={<ArrowRightOutlined />} />}
+          prevArrow={<Button icon={<ArrowLeftOutlined />} />}
           autoplay
           adaptiveHeight
           autoplaySpeed={5000}
@@ -52,6 +55,7 @@ const HomeWrapper = styled.div`
 const BannerWrapper = styled.div`
   width: 100%;
   margin-bottom: 30px;
+  padding: 1rem;
 `;
 
 export const HorizontalOverflowContainer = styled.div`

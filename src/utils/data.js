@@ -18,7 +18,7 @@ export const navLinks = [
   },
   {
     title: "Series",
-    link: "/movies",
+    link: "/series",
     icon: <FaLayerGroup style={{ marginRight: "20px" }} />,
   },
   {

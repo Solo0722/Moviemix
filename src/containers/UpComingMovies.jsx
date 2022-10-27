@@ -1,26 +1,59 @@
-import React, { useContext, useEffect } from "react";
+import { Button } from "antd";
+import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
-import MovieCard2 from "../components/MovieCard2";
+import MovieCard from "../components/MovieCard";
+import SeriesCard from "../components/SeriesCard";
 import { GlobalContext } from "../context/context";
 import { HorizontalOverflowContainer } from "../pages/Home";
 import Loading from "../utils/loadingAnimation";
+import { TitleWrapper } from "./PopularMovies";
 
 const UpComingMovies = () => {
   const { upcomingMovies, getUpComingMovies } = useContext(GlobalContext);
+  const [typ, setTyp] = useState("movie");
+
   useEffect(() => {
-    getUpComingMovies();
+    getUpComingMovies("movie");
   }, []);
+
+  const handleTypeChange = (type) => {
+    getUpComingMovies(type);
+  };
 
   return (
     <UpComingMoviesWrapper>
       <h2>Upcoming</h2>
+      <TitleWrapper>
+        <Button
+          shape="round"
+          onClick={() => {
+            handleTypeChange("movie");
+            setTyp("movie");
+          }}
+        >
+          Movies
+        </Button>
+        <Button
+          shape="round"
+          onClick={() => {
+            handleTypeChange("tv");
+            setTyp("tv");
+          }}
+        >
+          Series
+        </Button>
+      </TitleWrapper>
       {!upcomingMovies ? (
         <Loading />
       ) : (
         <HorizontalOverflowContainer>
           {upcomingMovies?.results?.map((movie) => (
             <div style={{ display: "inline-block" }}>
-              <MovieCard2 movie={movie} />
+              {typ == "movie" ? (
+                <MovieCard movie={movie} />
+              ) : (
+                <SeriesCard series={movie} />
+              )}
             </div>
           ))}
         </HorizontalOverflowContainer>

@@ -2,17 +2,18 @@ import { Button, Divider, Pagination } from "antd";
 import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import MovieCard from "../components/MovieCard";
+import SeriesCard from "../components/SeriesCard";
 import { GlobalContext } from "../context/context";
 import Loading from "../utils/loadingAnimation";
 import { HorizontalOverflowContainer } from "./Home";
 
-const AllMovies = () => {
+const AllSeries = () => {
   const { genres, fetchListOfGenres, movies, getMoviesBasedOnGenre } =
     useContext(GlobalContext);
 
   useEffect(() => {
-    fetchListOfGenres("movie");
-    getMoviesBasedOnGenre("movie");
+    fetchListOfGenres("tv");
+    getMoviesBasedOnGenre("tv");
   }, []);
 
   const [current, setCurrent] = useState(1);
@@ -21,12 +22,12 @@ const AllMovies = () => {
   const onChange = (page) => {
     console.log(page);
     setCurrent(page);
-    getMoviesBasedOnGenre("movie", genreKey, page);
+    getMoviesBasedOnGenre("tv",genreKey, page);
   };
 
   const selectGenre = (genreId) => {
     setGenreKey(genreId);
-    getMoviesBasedOnGenre("movie", genreId, current);
+    getMoviesBasedOnGenre("tv",genreId, current);
   };
 
   return (
@@ -56,7 +57,7 @@ const AllMovies = () => {
       ) : (
         <BodyWrapper>
           {movies?.results?.map((movie, i) => (
-            <MovieCard movie={movie} key={i} />
+            <SeriesCard series={movie} key={i} />
           ))}
         </BodyWrapper>
       )}
@@ -92,4 +93,4 @@ const PaginationWrapper = styled.div`
   margin: 20px 0;
 `;
 
-export default AllMovies;
+export default AllSeries;

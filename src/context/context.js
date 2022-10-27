@@ -23,6 +23,7 @@ const GlobalProvider = ({ children }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState(null);
   const [personDetails, setPersonDetails] = useState(null);
+  const [personMovies, setPersonMovies] = useState(null);
 
   useEffect(() => {
     !window.navigator.onLine &&
@@ -41,10 +42,10 @@ const GlobalProvider = ({ children }) => {
     }
   };
 
-  const getPopularMoviesOnTMDB = async () => {
+  const getPopularMoviesOnTMDB = async (type) => {
     try {
       const { data } = await axios.get(
-        `${BASE_URL}/movie/popular?api_key=${API_KEY}`
+        `${BASE_URL}/${type}/popular?api_key=${API_KEY}`
       );
       setPopularMovies(data);
     } catch (error) {
@@ -53,10 +54,10 @@ const GlobalProvider = ({ children }) => {
     }
   };
 
-  const getTopRatedMovies = async () => {
+  const getTopRatedMovies = async (type) => {
     try {
       const { data } = await axios.get(
-        `${BASE_URL}/movie/top_rated?api_key=${API_KEY}`
+        `${BASE_URL}/${type}/top_rated?api_key=${API_KEY}`
       );
       setTopRatedMovies(data);
     } catch (error) {
@@ -65,10 +66,10 @@ const GlobalProvider = ({ children }) => {
     }
   };
 
-  const getUpComingMovies = async () => {
+  const getUpComingMovies = async (type) => {
     try {
       const { data } = await axios.get(
-        `${BASE_URL}/movie/upcoming?api_key=${API_KEY}`
+        `${BASE_URL}/${type}/upcoming?api_key=${API_KEY}`
       );
       setUpcomingMovies(data);
     } catch (error) {
@@ -77,21 +78,23 @@ const GlobalProvider = ({ children }) => {
     }
   };
 
-  const getMovieDetails = async (movieId) => {
+  const getMovieDetails = async (type, id) => {
     try {
       const { data } = await axios.get(
-        `${BASE_URL}/movie/${movieId}?api_key=${API_KEY}`
+        `${BASE_URL}/${type}/${id}?api_key=${API_KEY}`
       );
       setMovieDetails(data);
+      console.log(data);
     } catch (error) {
       console.error(error);
       setMovieDetails(null);
     }
   };
-  const getMovieCredits = async (movieId) => {
+
+  const getMovieCredits = async (type, id) => {
     try {
       const { data } = await axios.get(
-        `${BASE_URL}/movie/${movieId}/credits?api_key=${API_KEY}`
+        `${BASE_URL}/${type}/${id}/credits?api_key=${API_KEY}`
       );
       setMovieCredits(data);
     } catch (error) {
@@ -112,23 +115,22 @@ const GlobalProvider = ({ children }) => {
     }
   };
 
-  const getVideosAboutAMovie = async (movieId) => {
+  const getVideosAboutAMovie = async (type, id) => {
     try {
       const { data } = await axios.get(
-        `${BASE_URL}/movie/${movieId}/videos?api_key=${API_KEY}`
+        `${BASE_URL}/${type}/${id}/videos?api_key=${API_KEY}`
       );
       setMovieVideos(data);
-      console.log(data);
     } catch (error) {
       console.log(error);
       setMovieVideos(null);
     }
   };
 
-  const getMovieOrShowReviews = async (movieId) => {
+  const getMovieOrShowReviews = async (type, id) => {
     try {
       const { data } = await axios.get(
-        `${BASE_URL}/movie/${movieId}/reviews?api_key=${API_KEY}`
+        `${BASE_URL}/${type}/${id}/reviews?api_key=${API_KEY}`
       );
       setMovieReviews(data);
     } catch (error) {
@@ -137,10 +139,10 @@ const GlobalProvider = ({ children }) => {
     }
   };
 
-  const getSimilarMovies = async (movieId) => {
+  const getSimilarMovies = async (type, id) => {
     try {
       const { data } = await axios.get(
-        `${BASE_URL}/movie/${movieId}/similar?api_key=${API_KEY}`
+        `${BASE_URL}/${type}/${id}/similar?api_key=${API_KEY}`
       );
       setSimilarMovies(data);
     } catch (error) {
@@ -149,10 +151,10 @@ const GlobalProvider = ({ children }) => {
     }
   };
 
-  const getRecommendedMovies = async (movieId) => {
+  const getRecommendedMovies = async (type, id) => {
     try {
       const { data } = await axios.get(
-        `${BASE_URL}/movie/${movieId}/recommendations?api_key=${API_KEY}`
+        `${BASE_URL}/${type}/${id}/recommendations?api_key=${API_KEY}`
       );
       setRecommendedMovies(data);
     } catch (error) {
@@ -161,10 +163,10 @@ const GlobalProvider = ({ children }) => {
     }
   };
 
-  const fetchListOfGenres = async () => {
+  const fetchListOfGenres = async (type) => {
     try {
       const { data } = await axios.get(
-        `${BASE_URL}/genre/movie/list?api_key=${API_KEY}`
+        `${BASE_URL}/genre/${type}/list?api_key=${API_KEY}`
       );
       setGenres(data);
     } catch (error) {
@@ -173,16 +175,16 @@ const GlobalProvider = ({ children }) => {
     }
   };
 
-  const getMoviesBasedOnGenre = async (genreId, pageNumber) => {
+  const getMoviesBasedOnGenre = async (type, genreId, pageNumber) => {
     try {
       if (!genreId || genreId === "" || genreId == undefined) {
         const { data } = await axios.get(
-          `${BASE_URL}/discover/movie?api_key=${API_KEY}&page=${pageNumber}`
+          `${BASE_URL}/discover/${type}?api_key=${API_KEY}&page=${pageNumber}`
         );
         setMovies(data);
       } else {
         const { data } = await axios.get(
-          `${BASE_URL}/discover/movie?api_key=${API_KEY}&with_genres=${genreId}&page=${pageNumber}`
+          `${BASE_URL}/discover/${type}?api_key=${API_KEY}&with_genres=${genreId}&page=${pageNumber}`
         );
         setMovies(data);
       }
@@ -192,7 +194,7 @@ const GlobalProvider = ({ children }) => {
     }
   };
 
-  const searchMovies = async (searchWord, searchType) => {
+  const searchMovies = async (searchType, searchWord) => {
     try {
       if (!searchWord && !searchType) {
         const { data } = await axios.get(
@@ -222,10 +224,22 @@ const GlobalProvider = ({ children }) => {
         `${BASE_URL}/person/${personId}?api_key=${API_KEY}`
       );
       setPersonDetails(data);
-      console.log(data);
     } catch (error) {
       console.log(error);
       setPersonDetails(null);
+    }
+  };
+
+  const getPersonMovies = async (personId) => {
+    try {
+      const { data } = await axios.get(
+        `${BASE_URL}/person/${personId}/movie_credits?api_key=${API_KEY}`
+      );
+      setPersonMovies(data);
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+      setPersonMovies(null);
     }
   };
 
@@ -249,6 +263,7 @@ const GlobalProvider = ({ children }) => {
         setSearchTerm,
         searchResults,
         personDetails,
+        personMovies,
 
         fetchTrendingMovies,
         getUpComingMovies,
@@ -265,6 +280,7 @@ const GlobalProvider = ({ children }) => {
         getMoviesBasedOnGenre,
         searchMovies,
         getPersonDetails,
+        getPersonMovies,
       }}
     >
       {children}

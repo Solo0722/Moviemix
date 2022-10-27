@@ -13,7 +13,7 @@ const Searchbar = () => {
 
   const handleSearch = () => {
     if (searchTerm.length > 2) {
-      searchMovies(searchTerm);
+      searchMovies(null, searchTerm);
     } else {
       message.info("Search term should be more than 2 characters");
     }

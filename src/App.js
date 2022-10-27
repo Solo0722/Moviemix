@@ -6,15 +6,13 @@ import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import GlobalProvider from "./context/context";
 import {
-  About,
   AllMovies,
-  Auth,
-  Favorites,
+  AllSeries,
   Home,
   MovieDetails,
   PersonDetails,
   Search,
-  Watchlist,
+  SeriesDetails,
 } from "./pages";
 
 function App() {
@@ -26,8 +24,10 @@ function App() {
           <Routes>
             <Route path="/*" exact element={<Home />} />
             <Route path="/movies/:movieId" exact element={<MovieDetails />} />
+            <Route path="/series/:seriesId" exact element={<SeriesDetails />} />
             <Route path="/people/:personId" exact element={<PersonDetails />} />
             <Route path="/movies" exact element={<AllMovies />} />
+            <Route path="/series" exact element={<AllSeries />} />
             <Route path="/search" exact element={<Search />} />
           </Routes>
         </RoutesContainer>
